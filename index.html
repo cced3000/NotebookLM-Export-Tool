@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NotebookLM Ultra Exporter - Export NotebookLM to Markdown, PDF, Word & Anki</title>
+    <meta name="description"
+        content="The best tool to export Google NotebookLM content. One-click export for notes, mindmaps, flashcards, and chat history to Markdown, PDF, Word, CSV, and Anki. 100% private and local processing.">
+    <meta name="keywords"
+        content="NotebookLM Export, Export NotebookLM to Markdown, NotebookLM to PDF, NotebookLM Flashcards to Anki, NotebookLM Mind Map Export, Google NotebookLM Tool">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="NotebookLM Ultra Exporter">
+    <meta property="og:description"
+        content="The best tool to export Google NotebookLM content. One-click export for notes, mindmaps, flashcards, and chat history to Markdown, PDF, Word, CSV, and Anki. 100% private and local processing..">
+    <meta property="og:type" content="website">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        heading: ['Poppins', 'sans-serif'],
+                        body: ['Open Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        },
+                        accent: {
+                            400: '#fb923c',
+                            500: '#f97316',
+                            600: '#ea580c',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+
+
+    <style>
+        /* NotebookLM Ultra Exporter - Landing Page Styles */
+
+        /* Smooth scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        /* Respect reduced motion preference */
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Floating animation for background decorations */
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-20px) rotate(5deg);
+            }
+        }
+
+        .float-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Subtle pulse for CTA buttons */
+        @keyframes subtle-pulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4);
+            }
+
+            50% {
+                box-shadow: 0 0 0 10px rgba(37, 99, 235, 0);
+            }
+        }
+
+        /* Text gradient animation */
+        @keyframes gradient-flow {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .animated-gradient {
+            background-size: 200% 200%;
+            animation: gradient-flow 3s ease infinite;
+        }
+
+        /* Feature card hover effect */
+        .feature-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+        }
+
+        /* Format card shine effect */
+        .format-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .format-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .format-card:hover::before {
+            left: 100%;
+        }
+
+        /* Navigation blur effect enhancement */
+        nav>div {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        /* Focus visible styles for accessibility */
+        a:focus-visible,
+        button:focus-visible {
+            outline: 2px solid #2563eb;
+            outline-offset: 2px;
+            border-radius: 8px;
+        }
+
+        /* Selection styling */
+        ::selection {
+            background: #bfdbfe;
+            color: #1e3a8a;
+        }
+
+        /* Print styles */
+        @media print {
+
+            nav,
+            .float-animation,
+            footer {
+                display: none;
+            }
+
+            body {
+                font-size: 12pt;
+                color: black;
+                background: white;
+            }
+
+            a {
+                text-decoration: underline;
+            }
+        }
+    </style>
+
+</head>
+
+<body class="font-body bg-slate-50 text-slate-800 antialiased">
+
+    <!-- Navigation -->
+    <nav class="fixed top-4 left-4 right-4 z-50">
+        <div
+            class="max-w-6xl mx-auto bg-white/80 backdrop-blur-lg rounded-2xl shadow-lg shadow-slate-200/50 border border-slate-200/50 px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-slate-900 rounded-xl flex items-center justify-center">
+                        <span class="text-white font-heading font-bold text-lg">N</span>
+                    </div>
+                    <span class="font-heading font-semibold text-slate-900">NotebookLM Ultra Exporter</span>
+                </div>
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#features" class="text-slate-600 hover:text-primary-600 transition-colors">Features</a>
+                    <a href="#how-it-works" class="text-slate-600 hover:text-primary-600 transition-colors">How It
+                        Works</a>
+                    <a href="#formats" class="text-slate-600 hover:text-primary-600 transition-colors">Formats</a>
+                    <a href="https://chromewebstore.google.com/detail/notebooklm-ultra-exporter/afchokljnhhggkhedfbmkcmdagjmjchj"
+                        target="_blank"
+                        class="bg-primary-600 hover:bg-primary-700 text-white px-5 py-2.5 rounded-xl font-medium transition-all hover:shadow-lg hover:shadow-primary-500/25 cursor-pointer">
+                        Install Free
+                    </a>
+                </div>
+                <!-- Mobile menu button -->
+                <button id="mobile-menu-btn" class="md:hidden p-2 text-slate-600 hover:text-slate-900 cursor-pointer">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+            <!-- Mobile menu -->
+            <div id="mobile-menu" class="hidden md:hidden mt-4 pt-4 border-t border-slate-200">
+                <div class="flex flex-col gap-4">
+                    <a href="#features" class="text-slate-600 hover:text-primary-600 transition-colors">Features</a>
+                    <a href="#how-it-works" class="text-slate-600 hover:text-primary-600 transition-colors">How It
+                        Works</a>
+                    <a href="#formats" class="text-slate-600 hover:text-primary-600 transition-colors">Formats</a>
+                    <a href="https://chromewebstore.google.com/detail/notebooklm-ultra-exporter/afchokljnhhggkhedfbmkcmdagjmjchj"
+                        target="_blank"
+                        class="bg-primary-600 hover:bg-primary-700 text-white px-5 py-2.5 rounded-xl font-medium text-center transition-all cursor-pointer">
+                        Install Free
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center pt-32 pb-20 px-4 relative overflow-hidden">
+        <!-- Background decoration -->
+        <div class="absolute inset-0 -z-10">
+            <div class="absolute top-20 left-10 w-72 h-72 bg-primary-400/20 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-20 right-10 w-96 h-96 bg-accent-400/20 rounded-full blur-3xl"></div>
+        </div>
+
+        <div class="max-w-6xl mx-auto text-center">
+            <!-- Logo -->
+            <div class="w-20 h-20 bg-slate-900 rounded-2xl flex items-center justify-center mx-auto mb-8 shadow-xl">
+                <span class="text-white font-heading font-bold text-4xl">N</span>
+            </div>
+
+            <!-- Plugin Name -->
+            <h1 class="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 leading-tight">
+                NotebookLM
+                <span
+                    class="block text-3xl md:text-4xl lg:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-primary-400">
+                    Ultra Exporter
+                </span>
+            </h1>
+
+            <!-- Core Description -->
+            <p class="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto mb-8 leading-relaxed">
+                Export notes, slides, mindmaps, flashcards & more to
+                <strong class="text-slate-800">Markdown, Word, PDF, CSV</strong> with one click
+            </p>
+
+            <!-- Rating & Social Proof -->
+            <div class="flex items-center justify-center gap-3 mb-2">
+                <!-- Stars -->
+                <div class="flex items-center gap-0.5">
+                    <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                    <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                    <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                    <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                    <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                </div>
+                <span class="font-semibold text-slate-800">5.0</span>
+                <span class="text-slate-400">•</span>
+                <span class="text-slate-600">1,000+ users</span>
+            </div>
+            <p class="text-slate-400 text-sm mb-10">
+                Most powerful third-party NotebookLM export extension
+            </p>
+
+            <!-- CTA Buttons -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+                <a href="https://chromewebstore.google.com/detail/notebooklm-ultra-exporter/afchokljnhhggkhedfbmkcmdagjmjchj"
+                    target="_blank"
+                    class="group bg-primary-600 hover:bg-primary-700 text-white px-8 py-4 rounded-2xl font-semibold text-lg transition-all hover:shadow-xl hover:shadow-primary-500/30 flex items-center gap-3 cursor-pointer">
+                    <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M12 0C8.21 0 4.831 1.757 2.632 4.501l3.953 6.848A5.454 5.454 0 0 1 12 6.545h10.691A12 12 0 0 0 12 0zM1.931 5.47A11.943 11.943 0 0 0 0 12c0 6.012 4.42 10.991 10.189 11.864l3.953-6.847a5.45 5.45 0 0 1-6.865-2.29L1.931 5.47zm13.878 2.763l-3.953 6.848a5.457 5.457 0 0 1 5.466 9.466c.074-.004.147-.009.221-.014A11.988 11.988 0 0 0 24 12c0-.321-.014-.639-.041-.953H15.81z" />
+                    </svg>
+                    Add to Chrome — It's Free
+                    <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none"
+                        stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                    </svg>
+                </a>
+                <a href="#features"
+                    class="text-slate-600 hover:text-primary-600 font-medium flex items-center gap-2 transition-colors cursor-pointer">
+                    Learn more
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </a>
+            </div>
+
+            <!-- Stats -->
+            <div class="flex flex-wrap justify-center gap-8 md:gap-16 pt-12 border-t border-slate-200">
+                <div class="text-center">
+                    <div class="font-heading text-3xl md:text-4xl font-bold text-slate-900">10+</div>
+                    <div class="text-slate-500 mt-1">Export Formats</div>
+                </div>
+                <div class="text-center">
+                    <div class="font-heading text-3xl md:text-4xl font-bold text-slate-900">7</div>
+                    <div class="text-slate-500 mt-1">Content Types</div>
+                </div>
+                <div class="text-center">
+                    <div class="font-heading text-3xl md:text-4xl font-bold text-slate-900">100%</div>
+                    <div class="text-slate-500 mt-1">Local Processing</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Features Section -->
+    <section id="features" class="py-32 px-4 relative">
+        <!-- Background decoration -->
+        <div class="absolute inset-0 -z-10">
+            <div class="absolute top-1/2 left-1/4 w-64 h-64 bg-blue-100/40 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-100/30 rounded-full blur-3xl"></div>
+        </div>
+
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-20">
+                <div
+                    class="inline-flex items-center gap-2 bg-blue-50 text-blue-600 px-4 py-2 rounded-full text-sm font-medium mb-6 border border-blue-100">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
+                    </svg>
+                    Comprehensive Export
+                </div>
+                <h2 class="font-heading text-3xl md:text-5xl font-bold text-slate-900 mb-6">
+                    Export Everything from NotebookLM
+                </h2>
+                <p class="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
+                    One extension, unlimited possibilities. Export any content type to your preferred format
+                    with just one click.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Feature Card 1 -->
+                <div
+                    class="group bg-white rounded-3xl p-8 shadow-sm hover:shadow-2xl border border-slate-100 transition-all duration-300 cursor-pointer hover:-translate-y-2">
+                    <div
+                        class="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-blue-500/25 group-hover:scale-110 transition-transform">
+                        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="font-heading font-semibold text-xl text-slate-900 mb-3">Notes & Reports</h3>
+                    <p class="text-slate-600 mb-6 leading-relaxed">Export AI-generated notes and research reports in
+                        multiple professional formats for any workflow.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span
+                            class="text-xs px-3 py-1.5 bg-blue-50 text-blue-600 rounded-full font-medium">Markdown</span>
+                        <span class="text-xs px-3 py-1.5 bg-blue-50 text-blue-600 rounded-full font-medium">Word</span>
+                        <span class="text-xs px-3 py-1.5 bg-blue-50 text-blue-600 rounded-full font-medium">PDF</span>
+                    </div>
+                </div>
+
+                <!-- Feature Card 2 -->
+                <div
+                    class="group bg-white rounded-3xl p-8 shadow-sm hover:shadow-2xl border border-slate-100 transition-all duration-300 cursor-pointer hover:-translate-y-2">
+                    <div
+                        class="w-14 h-14 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-purple-500/25 group-hover:scale-110 transition-transform">
+                        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="font-heading font-semibold text-xl text-slate-900 mb-3">Slides & Presentations</h3>
+                    <p class="text-slate-600 mb-6 leading-relaxed">Batch download slides, create stunning long images,
+                        or export directly to PowerPoint.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span
+                            class="text-xs px-3 py-1.5 bg-purple-50 text-purple-600 rounded-full font-medium">ZIP</span>
+                        <span class="text-xs px-3 py-1.5 bg-purple-50 text-purple-600 rounded-full font-medium">Long
+                            Image</span>
+                        <span
+                            class="text-xs px-3 py-1.5 bg-purple-50 text-purple-600 rounded-full font-medium">PPTX</span>
+                        <span
+                            class="text-xs px-3 py-1.5 bg-purple-50 text-purple-600 rounded-full font-medium">Video</span>
+                    </div>
+                </div>
+
+                <!-- Feature Card 3 -->
+                <div
+                    class="group bg-white rounded-3xl p-8 shadow-sm hover:shadow-2xl border border-slate-100 transition-all duration-300 cursor-pointer hover:-translate-y-2">
+                    <div
+                        class="w-14 h-14 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-emerald-500/25 group-hover:scale-110 transition-transform">
+                        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="font-heading font-semibold text-xl text-slate-900 mb-3">Mindmaps</h3>
+                    <p class="text-slate-600 mb-6 leading-relaxed">Capture your ideas visually with high-quality,
+                        scalable mindmap exports.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span
+                            class="text-xs px-3 py-1.5 bg-emerald-50 text-emerald-600 rounded-full font-medium">PNG</span>
+                        <span
+                            class="text-xs px-3 py-1.5 bg-emerald-50 text-emerald-600 rounded-full font-medium">SVG</span>
+                        <span
+                            class="text-xs px-3 py-1.5 bg-emerald-50 text-emerald-600 rounded-full font-medium">Markdown</span>
+                    </div>
+                </div>
+
+                <!-- Feature Card 4 -->
+                <div
+                    class="group bg-white rounded-3xl p-8 shadow-sm hover:shadow-2xl border border-slate-100 transition-all duration-300 cursor-pointer hover:-translate-y-2">
+                    <div
+                        class="w-14 h-14 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-orange-500/25 group-hover:scale-110 transition-transform">
+                        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="font-heading font-semibold text-xl text-slate-900 mb-3">Data Tables</h3>
+                    <p class="text-slate-600 mb-6 leading-relaxed">Export structured data tables to
+                        spreadsheet-compatible formats instantly.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span
+                            class="text-xs px-3 py-1.5 bg-orange-50 text-orange-600 rounded-full font-medium">CSV</span>
+                        <span
+                            class="text-xs px-3 py-1.5 bg-orange-50 text-orange-600 rounded-full font-medium">Markdown</span>
+                        <span
+                            class="text-xs px-3 py-1.5 bg-orange-50 text-orange-600 rounded-full font-medium">Word</span>
+                        <span
+                            class="text-xs px-3 py-1.5 bg-orange-50 text-orange-600 rounded-full font-medium">PDF</span>
+                    </div>
+                </div>
+
+                <!-- Feature Card 5 -->
+                <div
+                    class="group bg-white rounded-3xl p-8 shadow-sm hover:shadow-2xl border border-slate-100 transition-all duration-300 cursor-pointer hover:-translate-y-2">
+                    <div
+                        class="w-14 h-14 bg-gradient-to-br from-pink-500 to-pink-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-pink-500/25 group-hover:scale-110 transition-transform">
+                        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="font-heading font-semibold text-xl text-slate-900 mb-3">Flashcards</h3>
+                    <p class="text-slate-600 mb-6 leading-relaxed">Import your study cards directly into Anki or other
+                        flashcard apps seamlessly.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs px-3 py-1.5 bg-pink-50 text-pink-600 rounded-full font-medium">CSV</span>
+                        <span
+                            class="text-xs px-3 py-1.5 bg-pink-50 text-pink-600 rounded-full font-medium">Markdown</span>
+                        <span class="text-xs px-3 py-1.5 bg-pink-50 text-pink-600 rounded-full font-medium">Anki</span>
+                    </div>
+                </div>
+
+                <!-- Feature Card 6 -->
+                <div
+                    class="group bg-white rounded-3xl p-8 shadow-sm hover:shadow-2xl border border-slate-100 transition-all duration-300 cursor-pointer hover:-translate-y-2">
+                    <div
+                        class="w-14 h-14 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-cyan-500/25 group-hover:scale-110 transition-transform">
+                        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="font-heading font-semibold text-xl text-slate-900 mb-3">Chat History</h3>
+                    <p class="text-slate-600 mb-6 leading-relaxed">Save your AI conversations for future reference,
+                        sharing, and analysis.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span
+                            class="text-xs px-3 py-1.5 bg-cyan-50 text-cyan-600 rounded-full font-medium">Markdown</span>
+                        <span class="text-xs px-3 py-1.5 bg-cyan-50 text-cyan-600 rounded-full font-medium">Word</span>
+                        <span class="text-xs px-3 py-1.5 bg-cyan-50 text-cyan-600 rounded-full font-medium">PDF</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="py-32 px-4 bg-gradient-to-b from-white to-slate-50">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-20">
+                <div
+                    class="inline-flex items-center gap-2 bg-emerald-50 text-emerald-600 px-4 py-2 rounded-full text-sm font-medium mb-6 border border-emerald-100">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                    Quick Setup
+                </div>
+                <h2 class="font-heading text-3xl md:text-5xl font-bold text-slate-900 mb-6">
+                    Get Started in Seconds
+                </h2>
+                <p class="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
+                    No configuration needed. Install once and start exporting all your NotebookLM content right away.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-12 relative">
+                <!-- Connection line -->
+                <div
+                    class="hidden md:block absolute top-20 left-[20%] right-[20%] h-1 bg-gradient-to-r from-primary-100 via-primary-400 to-primary-100 rounded-full">
+                </div>
+
+                <!-- Step 1 -->
+                <div class="relative text-center group">
+                    <div
+                        class="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 text-white rounded-2xl flex items-center justify-center font-heading font-bold text-2xl mx-auto mb-8 relative z-10 shadow-xl shadow-primary-500/30 group-hover:scale-110 transition-transform">
+                        1
+                    </div>
+                    <h3 class="font-heading font-semibold text-xl text-slate-900 mb-4">Install Extension</h3>
+                    <p class="text-slate-600 leading-relaxed max-w-xs mx-auto">
+                        Click "Add to Chrome" and the extension will be ready to use in just seconds.
+                    </p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="relative text-center group">
+                    <div
+                        class="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 text-white rounded-2xl flex items-center justify-center font-heading font-bold text-2xl mx-auto mb-8 relative z-10 shadow-xl shadow-primary-500/30 group-hover:scale-110 transition-transform">
+                        2
+                    </div>
+                    <h3 class="font-heading font-semibold text-xl text-slate-900 mb-4">Open NotebookLM</h3>
+                    <p class="text-slate-600 leading-relaxed max-w-xs mx-auto">
+                        Navigate to <strong class="text-slate-800">notebooklm.google.com</strong> and open any notebook
+                        you want.
+                    </p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="relative text-center group">
+                    <div
+                        class="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 text-white rounded-2xl flex items-center justify-center font-heading font-bold text-2xl mx-auto mb-8 relative z-10 shadow-xl shadow-primary-500/30 group-hover:scale-110 transition-transform">
+                        3
+                    </div>
+                    <h3 class="font-heading font-semibold text-xl text-slate-900 mb-4">Export Content</h3>
+                    <p class="text-slate-600 leading-relaxed max-w-xs mx-auto">
+                        Click the export button next to any content and choose your preferred format.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Formats Section -->
+    <section id="formats" class="py-32 px-4 bg-white relative">
+        <!-- Background decoration -->
+        <div class="absolute inset-0 -z-10">
+            <div class="absolute top-1/3 right-1/4 w-72 h-72 bg-orange-100/30 rounded-full blur-3xl"></div>
+        </div>
+
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-20">
+                <div
+                    class="inline-flex items-center gap-2 bg-orange-50 text-orange-600 px-4 py-2 rounded-full text-sm font-medium mb-6 border border-orange-100">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z">
+                        </path>
+                    </svg>
+                    10+ Formats
+                </div>
+                <h2 class="font-heading text-3xl md:text-5xl font-bold text-slate-900 mb-6">
+                    Supported Export Formats
+                </h2>
+                <p class="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
+                    From documents to images to videos, we've got every format you need covered.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <div
+                    class="group bg-gradient-to-br from-blue-50 to-white rounded-2xl p-6 text-center border border-blue-100 hover:border-blue-300 hover:shadow-xl transition-all cursor-pointer hover:-translate-y-1">
+                    <div class="text-3xl font-heading font-bold text-blue-600 mb-2">.md</div>
+                    <div class="text-sm text-slate-600 font-medium">Markdown</div>
+                </div>
+                <div
+                    class="group bg-gradient-to-br from-blue-50 to-white rounded-2xl p-6 text-center border border-blue-100 hover:border-blue-300 hover:shadow-xl transition-all cursor-pointer hover:-translate-y-1">
+                    <div class="text-3xl font-heading font-bold text-blue-800 mb-2">.docx</div>
+                    <div class="text-sm text-slate-600 font-medium">Microsoft Word</div>
+                </div>
+                <div
+                    class="group bg-gradient-to-br from-red-50 to-white rounded-2xl p-6 text-center border border-red-100 hover:border-red-300 hover:shadow-xl transition-all cursor-pointer hover:-translate-y-1">
+                    <div class="text-3xl font-heading font-bold text-red-600 mb-2">.pdf</div>
+                    <div class="text-sm text-slate-600 font-medium">PDF Document</div>
+                </div>
+                <div
+                    class="group bg-gradient-to-br from-green-50 to-white rounded-2xl p-6 text-center border border-green-100 hover:border-green-300 hover:shadow-xl transition-all cursor-pointer hover:-translate-y-1">
+                    <div class="text-3xl font-heading font-bold text-green-600 mb-2">.csv</div>
+                    <div class="text-sm text-slate-600 font-medium">CSV Spreadsheet</div>
+                </div>
+                <div
+                    class="group bg-gradient-to-br from-orange-50 to-white rounded-2xl p-6 text-center border border-orange-100 hover:border-orange-300 hover:shadow-xl transition-all cursor-pointer hover:-translate-y-1">
+                    <div class="text-3xl font-heading font-bold text-orange-600 mb-2">.pptx</div>
+                    <div class="text-sm text-slate-600 font-medium">PowerPoint</div>
+                </div>
+                <div
+                    class="group bg-gradient-to-br from-purple-50 to-white rounded-2xl p-6 text-center border border-purple-100 hover:border-purple-300 hover:shadow-xl transition-all cursor-pointer hover:-translate-y-1">
+                    <div class="text-3xl font-heading font-bold text-purple-600 mb-2">.png</div>
+                    <div class="text-sm text-slate-600 font-medium">PNG Image</div>
+                </div>
+                <div
+                    class="group bg-gradient-to-br from-pink-50 to-white rounded-2xl p-6 text-center border border-pink-100 hover:border-pink-300 hover:shadow-xl transition-all cursor-pointer hover:-translate-y-1">
+                    <div class="text-3xl font-heading font-bold text-pink-600 mb-2">.svg</div>
+                    <div class="text-sm text-slate-600 font-medium">Vector Graphics</div>
+                </div>
+                <div
+                    class="group bg-gradient-to-br from-cyan-50 to-white rounded-2xl p-6 text-center border border-cyan-100 hover:border-cyan-300 hover:shadow-xl transition-all cursor-pointer hover:-translate-y-1">
+                    <div class="text-3xl font-heading font-bold text-cyan-600 mb-2">.jpg</div>
+                    <div class="text-sm text-slate-600 font-medium">JPEG Image</div>
+                </div>
+                <div
+                    class="group bg-gradient-to-br from-teal-50 to-white rounded-2xl p-6 text-center border border-teal-100 hover:border-teal-300 hover:shadow-xl transition-all cursor-pointer hover:-translate-y-1">
+                    <div class="text-3xl font-heading font-bold text-teal-600 mb-2">.webp</div>
+                    <div class="text-sm text-slate-600 font-medium">WebP Image</div>
+                </div>
+                <div
+                    class="group bg-gradient-to-br from-indigo-50 to-white rounded-2xl p-6 text-center border border-indigo-100 hover:border-indigo-300 hover:shadow-xl transition-all cursor-pointer hover:-translate-y-1">
+                    <div class="text-3xl font-heading font-bold text-indigo-600 mb-2">.zip</div>
+                    <div class="text-sm text-slate-600 font-medium">Archive Package</div>
+                </div>
+                <div
+                    class="group bg-gradient-to-br from-rose-50 to-white rounded-2xl p-6 text-center border border-rose-100 hover:border-rose-300 hover:shadow-xl transition-all cursor-pointer hover:-translate-y-1">
+                    <div class="text-3xl font-heading font-bold text-rose-600 mb-2">.mp4</div>
+                    <div class="text-sm text-slate-600 font-medium">Video File</div>
+                </div>
+                <div
+                    class="group bg-gradient-to-br from-amber-50 to-white rounded-2xl p-6 text-center border border-amber-100 hover:border-amber-300 hover:shadow-xl transition-all cursor-pointer hover:-translate-y-1">
+                    <div class="text-3xl font-heading font-bold text-amber-600 mb-2">.apkg</div>
+                    <div class="text-sm text-slate-600 font-medium">Anki Package</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Privacy Section -->
+    <section class="py-32 px-4 bg-slate-900 text-white relative overflow-hidden">
+        <!-- Background decoration -->
+        <div class="absolute inset-0">
+            <div class="absolute top-0 left-1/4 w-96 h-96 bg-primary-600/10 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-0 right-1/4 w-72 h-72 bg-green-500/10 rounded-full blur-3xl"></div>
+        </div>
+
+        <div class="max-w-6xl mx-auto relative z-10">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div>
+                    <div
+                        class="inline-flex items-center gap-2 bg-green-500/20 text-green-400 px-4 py-2 rounded-full text-sm font-medium mb-8 border border-green-500/30">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z">
+                            </path>
+                        </svg>
+                        Privacy First
+                    </div>
+                    <h2 class="font-heading text-3xl md:text-5xl font-bold mb-8">
+                        Your Data Stays <span class="text-primary-400">Private</span>
+                    </h2>
+                    <p class="text-slate-300 text-lg mb-8 leading-relaxed">
+                        We believe your research is yours alone. That's why all processing happens
+                        entirely in your browser. Your data never touches our servers —
+                        because we don't have any.
+                    </p>
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <svg class="w-6 h-6 text-green-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-slate-300"><strong class="text-white">100% Local Processing</strong> —
+                                Nothing leaves your browser</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-6 h-6 text-green-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-slate-300"><strong class="text-white">No Data Collection</strong> — We
+                                don't track, store, or sell anything</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-6 h-6 text-green-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-slate-300"><strong class="text-white">Open Source</strong> — Fully
+                                auditable code you can trust</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="relative">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-r from-primary-600/20 to-accent-500/20 rounded-3xl blur-2xl">
+                    </div>
+                    <div class="relative bg-slate-800/50 backdrop-blur border border-slate-700/50 rounded-2xl p-8">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-14 h-14 bg-green-500/20 rounded-xl flex items-center justify-center">
+                                <svg class="w-8 h-8 text-green-400" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z">
+                                    </path>
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="text-white font-semibold text-lg">Privacy Guaranteed</div>
+                                <div class="text-slate-400 text-sm">Zero external connections</div>
+                            </div>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between py-2 border-b border-slate-700/50">
+                                <span class="text-slate-400">Server uploads</span>
+                                <span class="text-red-400 font-medium">None</span>
+                            </div>
+                            <div class="flex items-center justify-between py-2 border-b border-slate-700/50">
+                                <span class="text-slate-400">Analytics tracking</span>
+                                <span class="text-red-400 font-medium">None</span>
+                            </div>
+                            <div class="flex items-center justify-between py-2">
+                                <span class="text-slate-400">Third-party sharing</span>
+                                <span class="text-red-400 font-medium">None</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-32 px-4 relative overflow-hidden">
+        <!-- Background decoration -->
+        <div class="absolute inset-0 -z-10">
+            <div
+                class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary-100/50 rounded-full blur-3xl">
+            </div>
+        </div>
+
+        <div class="max-w-4xl mx-auto text-center relative z-10">
+            <h2 class="font-heading text-3xl md:text-5xl font-bold text-slate-900 mb-8">
+                Ready to Unlock Your Research?
+            </h2>
+            <p class="text-lg md:text-xl text-slate-600 mb-12 max-w-2xl mx-auto leading-relaxed">
+                Join researchers, students, and professionals who are already exporting their
+                NotebookLM content freely. It takes just one click to get started.
+            </p>
+            <a href="https://chromewebstore.google.com/detail/notebooklm-ultra-exporter/afchokljnhhggkhedfbmkcmdagjmjchj"
+                target="_blank"
+                class="inline-flex items-center gap-3 bg-gradient-to-r from-primary-600 to-primary-500 hover:from-primary-700 hover:to-primary-600 text-white px-10 py-5 rounded-2xl font-semibold text-xl transition-all hover:shadow-2xl hover:shadow-primary-500/40 cursor-pointer hover:-translate-y-1">
+                <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M12 0C8.21 0 4.831 1.757 2.632 4.501l3.953 6.848A5.454 5.454 0 0 1 12 6.545h10.691A12 12 0 0 0 12 0zM1.931 5.47A11.943 11.943 0 0 0 0 12c0 6.012 4.42 10.991 10.189 11.864l3.953-6.847a5.45 5.45 0 0 1-6.865-2.29L1.931 5.47zm13.878 2.763l-3.953 6.848a5.457 5.457 0 0 1 5.466 9.466c.074-.004.147-.009.221-.014A11.988 11.988 0 0 0 24 12c0-.321-.014-.639-.041-.953H15.81z" />
+                </svg>
+                Add to Chrome — It's Free
+            </a>
+            <p class="text-slate-500 mt-6 text-sm">No account required • Works instantly</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-12 px-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-slate-900 rounded-xl flex items-center justify-center">
+                        <span class="text-white font-heading font-bold text-lg">N</span>
+                    </div>
+                    <span class="font-heading font-semibold text-slate-900">NotebookLM Ultra Exporter</span>
+                </div>
+                <div class="flex items-center gap-6 text-slate-500">
+                    <a href="https://chromewebstore.google.com/detail/notebooklm-ultra-exporter/afchokljnhhggkhedfbmkcmdagjmjchj"
+                        target="_blank" class="hover:text-primary-600 transition-colors">Chrome Web Store</a>
+                    <a href="https://github.com/cced3000/NotebookLM-Export-Tool/issues" target="_blank"
+                        class="hover:text-primary-600 transition-colors">Report Issues</a>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-slate-100 text-center text-slate-400 text-sm">
+                <p>Free your AI research — NotebookLM Ultra Exporter</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile menu script -->
+    <script>
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close menu when clicking on a link
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
