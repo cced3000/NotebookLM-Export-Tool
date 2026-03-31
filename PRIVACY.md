@@ -36,5 +36,5 @@ We may update our Privacy Policy from time to time. Any changes will be posted o
 
 If you have any questions or suggestions about our Privacy Policy, do not hesitate to contact us at:
 
-* **GitHub Issues**: [[Insert your GitHub link here]](https://github.com/cced3000/NotebookLM-Export-Tool/)
+* **GitHub Issues**: ([https://github.com/cced3000/NotebookLM-Export-Tool/](https://github.com/cced3000/NotebookLM-Export-Tool/issues))
 * **Email**: chat@vs2vs.com
